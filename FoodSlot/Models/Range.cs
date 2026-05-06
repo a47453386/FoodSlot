@@ -1,7 +1,10 @@
-﻿namespace FoodSlot.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FoodSlot.Models
 {
     public class Range
     {
+        [Key]
         public int rangeID { get; set; }
         public int radius { get; set; }
         public DateTime createTime { get; set; }

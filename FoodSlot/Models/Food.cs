@@ -1,9 +1,14 @@
-﻿namespace FoodSlot.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FoodSlot.Models
 {
     public class Food
     {
+        [Key]
         public int foodID { get; set; }
+        [StringLength(50)]
         public string foodname { get; set; } = null!;
+        [StringLength(36)]
         public string photo { get; set; } = null!;
         public DateTime createTime { get; set; }
         public DateTime? updateTime { get; set; }

@@ -1,7 +1,10 @@
-﻿namespace FoodSlot.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FoodSlot.Models
 {
     public class Verification
     {
+        [Key]
         public int verificationID { get; set; }
         public int code { get; set; }
         public DateTime createTime { get; set; }

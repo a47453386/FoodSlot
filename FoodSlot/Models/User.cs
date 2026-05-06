@@ -1,10 +1,16 @@
-﻿namespace FoodSlot.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FoodSlot.Models
 {
     public class User
     {
+        [Key]
         public int userID { get; set; }
+        [StringLength(50)]
         public string username { get; set; } = null!;
+        [StringLength(255)]
         public string password { get; set; } = null!;
+        [StringLength (100)]
         public string email { get; set; } = null!;
         public bool isAdmin { get; set; } = false;
         public DateTime createTime { get; set; }
