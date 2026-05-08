@@ -7,8 +7,8 @@ namespace FoodSlot.Models
         [Key]
         public int verificationID { get; set; }
         public int code { get; set; }
-        public DateTime createTime { get; set; }
+        public DateTime createTime { get; set; } = DateTime.Now;
         public int userID { get; set; }
-        public virtual User user { get; set; } = new User();
+        public virtual User user { get; set; } = null!;
     }
 }

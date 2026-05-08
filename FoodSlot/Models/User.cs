@@ -13,8 +13,8 @@ namespace FoodSlot.Models
         [StringLength (100)]
         public string email { get; set; } = null!;
         public bool isAdmin { get; set; } = false;
-        public DateTime createTime { get; set; }
-        public DateTime lastLoginTime { get; set; }
+        public DateTime createTime { get; set; } = DateTime.Now;
+        public DateTime lastLoginTime { get; set; } = DateTime.Now;
 
         public virtual List<Food> Foods { get; set; } = new List<Food>();
         public virtual List<Range> Ranges { get; set; } = new List<Range>();
@@ -26,5 +26,7 @@ namespace FoodSlot.Models
         public virtual List<LotteryHistory> LotteryHistories { get; set; } = new List<LotteryHistory>();
         public virtual List<UserFoodSettings> UserFoodSettings { get; set; } = new List<UserFoodSettings>();
         public virtual List<UserRangeSettings> UserRangeSettings { get; set; } = new List<UserRangeSettings>();
+        public virtual List<SystemSeting> SystemSetings { get; set; } = new List<SystemSeting>();
+        public virtual List<SystemSetingCcategory> SystemSetingCcategories { get; set; } = new List<SystemSetingCcategory>();
     }
 }
