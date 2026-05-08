@@ -6,11 +6,11 @@ namespace FoodSlot.Models
     {
         [Key]
         public int userID { get; set; }
-        [StringLength(50)]
+        [MaxLength(50)]
         public string username { get; set; } = null!;
-        [StringLength(255)]
+        [MaxLength(255)]
         public string password { get; set; } = null!;
-        [StringLength (100)]
+        [MaxLength(100)]
         public string email { get; set; } = null!;
         public bool isAdmin { get; set; } = false;
         public DateTime createTime { get; set; } = DateTime.Now;

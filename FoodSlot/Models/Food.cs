@@ -7,9 +7,9 @@ namespace FoodSlot.Models
         [Key]
         public int foodID { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(50)]
         public string foodname { get; set; } = null!;
-        [StringLength(36)]
+        [MaxLength(36)]
         public string photo { get; set; } = null!;
         public DateTime createTime { get; set; } = DateTime.Now;
         public DateTime? updateTime { get; set; }
