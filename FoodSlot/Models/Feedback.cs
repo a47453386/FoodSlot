@@ -15,6 +15,6 @@ namespace FoodSlot.Models
         public bool state { get; set; } 
 
         public int userID { get; set; }
-        public virtual User Users { get; set; }
+        public virtual User Users { get; set; } = null!;
     }
 }
