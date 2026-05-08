@@ -7,13 +7,26 @@ namespace FoodSlot.Models
         [Key]
         public int systemSetingID { get; set; }
 
-        public int maxHistory { get; set; }
-                
-        public bool toggleRegistration { get; set; }
+        [MaxLength(100)]
+        public string settingName { get; set; } = null!;
 
-        
+        [MaxLength(100)]
+        public string settingValue { get; set; } = null!;
+
+        [MaxLength(20)]
+        public string valueType { get; set; } = null!;
+
+        [MaxLength(200)]
+        public string? description { get; set; }
+                
+    
+
         public int userID { get; set; }
         public virtual User Users { get; set; } = null!;
+
+        public int systemSetingCcategoryID { get; set; }
+        public virtual SystemSetingCcategory? SystemSetingCcategories { get; set; } = null!;
+
 
     }
 }
