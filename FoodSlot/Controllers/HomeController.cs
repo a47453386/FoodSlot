@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using FoodSlot.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace FoodSlot.Controllers
 {
