@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using FoodSlot.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<FoodSlotContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FoodSlotConnection")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
