@@ -26,7 +26,7 @@ namespace FoodSlot.Models
         public virtual List<LotteryHistory> LotteryHistories { get; set; } = new List<LotteryHistory>();
         public virtual List<UserFoodSettings> UserFoodSettings { get; set; } = new List<UserFoodSettings>();
         public virtual List<UserRangeSettings> UserRangeSettings { get; set; } = new List<UserRangeSettings>();
-        public virtual List<SystemSeting> SystemSetings { get; set; } = new List<SystemSeting>();
-        public virtual List<SystemSetingCategory> SystemSetingCategories { get; set; } = new List<SystemSetingCategory>();
+        public virtual List<SystemSetting> SystemSettings { get; set; } = new List<SystemSetting>();
+        public virtual List<SystemSettingCategory> SystemSettingCategories { get; set; } = new List<SystemSettingCategory>();
     }
 }
