@@ -11,8 +11,8 @@ namespace FoodSlot.Models
         public DateTime CreateTime { get; set; } = DateTime.Now;
 
         public int userID { get; set; }
-        public virtual User Users { get; set; } = null!;
+        public virtual User user { get; set; } = null!;
         public int storeID { get; set; }
-        public virtual Store Stores { get; set; } = null!;
+        public virtual Store stores { get; set; } = null!;
     }
 }

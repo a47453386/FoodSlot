@@ -15,10 +15,10 @@ namespace FoodSlot.Models
         
 
         public int userID { get; set; }
-        public virtual User Users { get; set; } = null!;
+        public virtual User user { get; set; } = null!;
 
 
-        public virtual List<SystemSeting> SystemSetings { get; set; } = new List<SystemSeting>();
+        public virtual List<SystemSeting> systemSetings { get; set; } = new List<SystemSeting>();
 
     }
 }

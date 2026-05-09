@@ -26,6 +26,6 @@ namespace FoodSlot.Models
         public DateTime CreateTime { get; set; } = DateTime.Now;
 
         public int foodID { get; set; }
-        public virtual Food Foods { get; set; } = null!;
+        public virtual Food food { get; set; } = null!;
     }   
 }
