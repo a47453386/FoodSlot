@@ -8,11 +8,11 @@ namespace FoodSlot.Models
         [Key]
         public int geolocationID { get; set; }
         [MaxLength(50)]
-        public string geolocationName { get; set; } 
+        public string geolocationName { get; set; } = null!;
         public double geolng { get; set; }
         public double geolat { get; set; }
         public int userID { get; set; }
-        public virtual User Users { get; set; }
+        public virtual User User { get; set; } = null!;
     }
  }
 

@@ -9,8 +9,8 @@ namespace FoodSlot.Models
         [DataType(DataType.DateTime)] 
         public DateTime CreateTime { get; set; } = DateTime.Now;
         public int UserID { get; set; }
-        public virtual User Users { get; set; }
+        public virtual User User { get; set; } = null!;
         public int FoodID { get; set; }
-        public virtual Food Foods { get; set; }
+        public virtual List<Food> Foods { get; set; } = new List<Food>();
     }
 }

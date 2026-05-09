@@ -9,6 +9,6 @@ namespace FoodSlot.Models
         public int code { get; set; }
         public DateTime createTime { get; set; } = DateTime.Now;
         public int userID { get; set; }
-        public virtual User user { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
     }
 }

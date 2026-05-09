@@ -15,9 +15,12 @@ namespace FoodSlot.Models
         public DateTime? updateTime { get; set; }
 
         public int? parentfoodID { get; set; }
-        public virtual Food? parentfood { get; set; }
-        public virtual List<Food> childrens { get; set; } = new List<Food>();
+        public virtual Food? Parentfood { get; set; }
+        public virtual List<Food> Childrens { get; set; } = new List<Food>();
         public int userID { get; set; }
-        public virtual User user { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
+        public virtual List<LotteryHistory> LotteryHistories { get; set; } = new List<LotteryHistory>();
+        public virtual List<Store> Store { get; set; } =new List<Store>();
+        public virtual List<UserFoodSettings> UserFoodSettings { get; set; } = new List<UserFoodSettings>();
     }
 }
