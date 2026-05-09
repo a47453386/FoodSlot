@@ -2,7 +2,7 @@
 
 namespace FoodSlot.Models
 {
-    public class Range
+    public class UserRange
     {
         [Key]
         public int rangeID { get; set; }
