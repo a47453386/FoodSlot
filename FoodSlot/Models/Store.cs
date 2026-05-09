@@ -26,6 +26,11 @@ namespace FoodSlot.Models
         public DateTime CreateTime { get; set; } = DateTime.Now;
 
         public int foodID { get; set; }
-        public virtual Food food { get; set; } = null!;
+        public virtual Food Food { get; set; } = null!;
+        public virtual List<DrawHistory> DrawHistories { get; set; } = new List<DrawHistory>();
+        public virtual List<PocketList> PocketLists { get; set; } = new List<PocketList>();
+  
+
+
     }   
 }

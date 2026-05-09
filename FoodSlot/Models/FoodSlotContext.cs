@@ -26,7 +26,7 @@ namespace FoodSlot.Models
         public  DbSet<UserFoodSettings> UserFoodSettings { get; set; }
         public  DbSet<UserRangeSettings> UserRangeSettings { get; set; }
         public DbSet<SystemSeting> SystemSetings { get; set; }
-        public DbSet<SystemSetingCcategory> SystemSetingCcategories { get; set; }
+        public DbSet<SystemSetingCategory> SystemSetingCcategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,7 @@ namespace FoodSlot.Models
             //    //自我關聯
             modelBuilder.Entity<Food>()
                 .HasOne(f => f.parentfood)
-                .WithMany(f => f.children)
+                .WithMany(f => f.childrens)
                 .HasForeignKey(f => f.parentfoodID)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -63,40 +63,40 @@ namespace FoodSlot.Models
             // --- DrawHistory 設定 ---
             modelBuilder.Entity<DrawHistory>()
                 .HasOne(d => d.user)
-                .WithMany(DrawHistories)
+                .WithMany(u => u.DrawHistories)
                 .HasForeignKey(d => d.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<DrawHistory>()
                 .HasOne(d => d.stores)
-                .WithMany(DrawHistories)
+                .WithMany(u => u.DrawHistories)
                 .HasForeignKey(d => d.storeID)
                 .OnDelete(DeleteBehavior.Restrict); 
 
             // --- PocketList 設定 ---
             modelBuilder.Entity<PocketList>()
-                .HasOne(p => p.user)
-                .WithMany(PocketLists)
+                .HasOne(p => p.User)
+                .WithMany(u => u.PocketLists)
                 .HasForeignKey(p => p.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<PocketList>()
                 .HasOne(p => p.stores)
-                .WithMany(PocketLists)
+                .WithMany(u => u.PocketLists)
                 .HasForeignKey(p => p.storeID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // --- Feedback 設定 ---
             modelBuilder.Entity<Feedback>()
                 .HasOne(f => f.user)
-                .WithMany(Feedbacks)
+                .WithMany(u => u.Feedbacks)
                 .HasForeignKey(f => f.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // --- Store 設定 ---
             modelBuilder.Entity<Store>()
                 .HasOne(f => f.food)
-                .WithMany(Stores)
+                .WithMany(u => u.Stores)
                 .HasForeignKey(f => f.foodID)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -106,38 +106,38 @@ namespace FoodSlot.Models
 
             modelBuilder.Entity<SystemSetingCcategory>()
                 .HasOne(f => f.user)
-                .WithMany(SystemSetingCcategories)
+                .WithMany(u => u.SystemSetingCcategories)
                 .HasForeignKey(f => f.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SystemSeting>()
                 .HasOne(f => f.user)
-                .WithMany(SystemSetings)
+                .WithMany(u => u.SystemSetings)
                 .HasForeignKey(f => f.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SystemSeting>()
-                .HasOne(f => f.systemSetingCcategories)
-                .WithMany(SystemSetings)
+                .HasOne(f => f.SystemSetingCcategories)
+                .WithMany(u => u.SystemSetings)
                 .HasForeignKey(f => f.categoryID)
                 .OnDelete(DeleteBehavior.Restrict);
 
 
             modelBuilder.Entity<Geolocation>()
-                .HasOne(f => f.user)
-                .WithMany(Geolocations)
+                .HasOne(f => f.User)
+                .WithMany(u => u.Geolocations)
                 .HasForeignKey(f => f.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<LotteryHistory>()
-                .HasOne(f => f.user)
-                .WithMany(LotteryHistories)
+                .HasOne(f => f.User)
+                .WithMany(u => u.LotteryHistories)
                 .HasForeignKey(f => f.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<LotteryHistory>()
-                .HasOne(f => f.food)
-                .WithMany(LotteryHistories)
+                .HasOne(f => f.Food)
+                .WithMany(u => u.LotteryHistories)
                 .HasForeignKey(f => f.foodID)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -148,18 +148,18 @@ namespace FoodSlot.Models
                 entity.ToTable("UserFoodSettings");
 
                 // 定義複合主鍵 (Composite Key)
-                entity.HasKey(e => new { e.UserId, e.FoodId });
+                entity.HasKey(e => new { e.userID, e.foodID });
 
                 // 關聯到 User 表
                 entity.HasOne<User>()
-                    .WithMany(UserFoodSettings)
+                    .WithMany(u => u.UserFoodSettings)
                     .HasForeignKey(e => e.userID)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 // 關聯到 Food 表
                 entity.HasOne<Food>()
-                    .WithMany(UserFoodSettings)
-                    .HasForeignKey(e => e.FoodId)
+                    .WithMany(u => u.UserFoodSettings)
+                    .HasForeignKey(e => e.foodID)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -173,13 +173,13 @@ namespace FoodSlot.Models
 
                 // 關聯到 User 表
                 entity.HasOne<User>()
-                    .WithMany(UserRangeSettings)
+                    .WithMany(u => u.UserRangeSettings)
                     .HasForeignKey(e => e.userID)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 // 關聯到 Range 表
-                entity.HasOne<RangeEntity>() // 註：Range 通常是 C# 關鍵字，建議類別名取 RangeEntity
-                    .WithMany(UserRangeSettings)
+                entity.HasOne<Range>() // 註：Range 通常是 C# 關鍵字，建議類別名取 RangeEntity
+                    .WithMany(u => u.UserRangeSettings)
                     .HasForeignKey(e => e.rangeID)
                     .OnDelete(DeleteBehavior.Restrict);
             });

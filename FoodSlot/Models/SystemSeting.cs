@@ -22,10 +22,10 @@ namespace FoodSlot.Models
     
 
         public int userID { get; set; }
-        public virtual User user { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
 
         public int categoryID { get; set; }
-        public virtual SystemSetingCcategory? systemSetingCcategories { get; set; } = null!;
+        public virtual SystemSetingCategory SystemSetingCategories { get; set; } = null!;
 
 
     }
