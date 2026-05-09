@@ -91,7 +91,7 @@ namespace FoodSlot.Models
                 .HasOne(f => f.user)
                 .WithMany(Feedbacks)
                 .HasForeignKey(f => f.userID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             // --- Store 設定 ---
             modelBuilder.Entity<Store>()
@@ -121,6 +121,67 @@ namespace FoodSlot.Models
                 .WithMany(SystemSetings)
                 .HasForeignKey(f => f.categoryID)
                 .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Geolocation>()
+                .HasOne(f => f.user)
+                .WithMany(Geolocations)
+                .HasForeignKey(f => f.userID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<LotteryHistory>()
+                .HasOne(f => f.user)
+                .WithMany(LotteryHistories)
+                .HasForeignKey(f => f.userID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<LotteryHistory>()
+                .HasOne(f => f.food)
+                .WithMany(LotteryHistories)
+                .HasForeignKey(f => f.foodID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // --- 使用者種類設定 (UserFoodSettings) 關聯配置 ---
+            modelBuilder.Entity<UserFoodSettings>(entity =>
+            {
+                entity.ToTable("UserFoodSettings");
+
+                // 定義複合主鍵 (Composite Key)
+                entity.HasKey(e => new { e.UserId, e.FoodId });
+
+                // 關聯到 User 表
+                entity.HasOne<User>()
+                    .WithMany()
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // 關聯到 Food 表
+                entity.HasOne<Food>()
+                    .WithMany()
+                    .HasForeignKey(e => e.FoodId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // --- 使用者範圍設定 (UserRangeSettings) 關聯配置 ---
+            modelBuilder.Entity<UserRangeSettings>(entity =>
+            {
+                entity.ToTable("UserRangeSettings");
+
+                // 定義複合主鍵
+                entity.HasKey(e => new { e.UserId, e.RangeId });
+
+                // 關聯到 User 表
+                entity.HasOne<User>()
+                    .WithMany()
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // 關聯到 Range 表
+                entity.HasOne<RangeEntity>() // 註：Range 通常是 C# 關鍵字，建議類別名取 RangeEntity
+                    .WithMany()
+                    .HasForeignKey(e => e.RangeId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
         }
     }
 }
