@@ -27,6 +27,6 @@ namespace FoodSlot.Models
         public virtual List<UserFoodSettings> UserFoodSettings { get; set; } = new List<UserFoodSettings>();
         public virtual List<UserRangeSettings> UserRangeSettings { get; set; } = new List<UserRangeSettings>();
         public virtual List<SystemSeting> SystemSetings { get; set; } = new List<SystemSeting>();
-        public virtual List<SystemSetingCcategory> SystemSetingCcategories { get; set; } = new List<SystemSetingCcategory>();
+        public virtual List<SystemSetingCategory> SystemSetingCategories { get; set; } = new List<SystemSetingCategory>();
     }
 }

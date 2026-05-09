@@ -20,7 +20,7 @@ namespace FoodSlot.Models
         public int userID { get; set; }
         public virtual User User { get; set; } = null!;
         public virtual List<LotteryHistory> LotteryHistories { get; set; } = new List<LotteryHistory>();
-        public virtual List<Store> Store { get; set; } =new List<Store>();
+        public virtual List<Store> Stores { get; set; } =new List<Store>();
         public virtual List<UserFoodSettings> UserFoodSettings { get; set; } = new List<UserFoodSettings>();
     }
 }
