@@ -2,7 +2,7 @@
 
 namespace FoodSlot.Models
 {
-    public class SystemSeting
+    public class SystemSetting
     {
         [Key]
         public int systemSetingID { get; set; }
@@ -25,7 +25,7 @@ namespace FoodSlot.Models
         public virtual User User { get; set; } = null!;
 
         public int categoryID { get; set; }
-        public virtual SystemSetingCategory SystemSetingCategories { get; set; } = null!;
+        public virtual SystemSettingCategory SystemSettingCategories { get; set; } = null!;
 
 
     }

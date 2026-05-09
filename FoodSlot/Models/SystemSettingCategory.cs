@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodSlot.Models
 {
-    public class SystemSetingCategory
+    public class SystemSettingCategory
     {
         [Key]
         public int categoryID { get; set; }
@@ -18,7 +18,7 @@ namespace FoodSlot.Models
         public virtual User User { get; set; } = null!;
 
 
-        public virtual List<SystemSeting> SystemSetings { get; set; } = new List<SystemSeting>();
+        public virtual List<SystemSetting> SystemSettings { get; set; } = new List<SystemSetting>();
 
     }
 }

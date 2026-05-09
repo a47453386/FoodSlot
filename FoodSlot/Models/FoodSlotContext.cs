@@ -13,7 +13,7 @@ namespace FoodSlot.Models
         public FoodSlotContext(DbContextOptions<FoodSlotContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Food> Foods { get; set; }
-        public DbSet<Range> Ranges { get; set; }
+        public DbSet<UserRange> UserRanges { get; set; }
         public DbSet<Verification> Verifications { get; set; }
 
         public DbSet<DrawHistory> DrawHistories { get; set; }
@@ -21,12 +21,12 @@ namespace FoodSlot.Models
         public DbSet<PocketList> PocketLists { get; set; }
         public DbSet<Store> Stores { get; set; }        
 
-        public  DbSet<Geolocation> Geolocation { get; set; }
-        public  DbSet<LotteryHistory> LotteryHistory { get; set; }
+        public  DbSet<Geolocation> Geolocations { get; set; }
+        public  DbSet<LotteryHistory> LotteryHistories { get; set; }
         public  DbSet<UserFoodSettings> UserFoodSettings { get; set; }
         public  DbSet<UserRangeSettings> UserRangeSettings { get; set; }
-        public DbSet<SystemSeting> SystemSetings { get; set; }
-        public DbSet<SystemSetingCategory> SystemSetingCcategories { get; set; }
+        public DbSet<SystemSetting> SystemSettings { get; set; }
+        public DbSet<SystemSettingCategory> SystemSettingCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,9 +45,9 @@ namespace FoodSlot.Models
                 .HasForeignKey(f => f.parentfoodID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Range>()
+            modelBuilder.Entity<UserRange>()
                 .HasOne(r => r.User)
-                    .WithMany(u => u.Ranges)
+                    .WithMany(u => u.UserRange)
                     .HasForeignKey(r => r.userID)
                     .OnDelete(DeleteBehavior.Restrict);
 
@@ -104,21 +104,21 @@ namespace FoodSlot.Models
 
             // --- SystemSeting設定 ---
 
-            modelBuilder.Entity<SystemSetingCategory>()
+            modelBuilder.Entity<SystemSettingCategory>()
                 .HasOne(f => f.User)
-                .WithMany(u => u.SystemSetingCategories)
+                .WithMany(u => u.SystemSettingCategories)
                 .HasForeignKey(f => f.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<SystemSeting>()
+            modelBuilder.Entity<SystemSetting>()
                 .HasOne(f => f.User)
-                .WithMany(u => u.SystemSetings)
+                .WithMany(u => u.SystemSettings)
                 .HasForeignKey(f => f.userID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<SystemSeting>()
-                .HasOne(f => f.SystemSetingCategories)
-                .WithMany(u => u.SystemSetings)
+            modelBuilder.Entity<SystemSetting>()
+                .HasOne(f => f.SystemSettingCategories)
+                .WithMany(u => u.SystemSettings)
                 .HasForeignKey(f => f.categoryID)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -179,7 +179,7 @@ namespace FoodSlot.Models
                     .OnDelete(DeleteBehavior.Restrict);
 
                 // 關聯到 Range 表
-                entity.HasOne<Range>() // 註：Range 通常是 C# 關鍵字，建議類別名取 RangeEntity
+                entity.HasOne<UserRange>() // 註：Range 通常是 C# 關鍵字，建議類別名取 RangeEntity
                     .WithMany(u => u.UserRangeSettings)
                     .HasForeignKey(e => e.rangeID)
                     .OnDelete(DeleteBehavior.Restrict);
