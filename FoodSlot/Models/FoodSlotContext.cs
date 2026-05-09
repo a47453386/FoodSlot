@@ -47,7 +47,7 @@ namespace FoodSlot.Models
 
             modelBuilder.Entity<UserRange>()
                 .HasOne(r => r.User)
-                    .WithMany(u => u.UserRange)
+                    .WithMany(u => u.UserRanges)
                     .HasForeignKey(r => r.userID)
                     .OnDelete(DeleteBehavior.Restrict);
 
