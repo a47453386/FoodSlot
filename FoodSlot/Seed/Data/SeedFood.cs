@@ -19,7 +19,7 @@ namespace FoodSlot.Seed.Data
 
                 // 1. 用 Dictionary 建立清晰的「主分類 -> 子分類」對應表
                 // Key = 主分類名稱, Value = 該主分類下的子分類名稱清單
-                var FoodHierarchy = new Dictionary<string, List<string>>
+                var foodHierarchy = new Dictionary<string, List<string>>
                 {
                     { "飯食主義", new List<string> { "白飯", "便當", "健康餐盒", "丼飯", "炒飯", "燴飯", "滷肉飯", "雞肉飯", "粥", "壽司", "咖哩" } },
                     { "麵麵俱到", new List<string> { "陽春麵", "牛肉麵", "炒麵", "拉麵", "烏龍麵", "涼麵", "鍋燒麵", "義大利麵" } },
@@ -30,12 +30,13 @@ namespace FoodSlot.Seed.Data
                 };
                 int imageIndex = 0;
                 // 2. 迴圈處理階層寫入
-                foreach (var item in FoodHierarchy)
+                foreach (var item in foodHierarchy)
                 {
                     // 先建立主分類
                     var parentCategory = new Food
                     {
                         foodname = item.Key,
+                        photo = "",
                         createTime = now
                     };
 
