@@ -18,7 +18,7 @@ namespace FoodSlot.Models
         public virtual Food? Parentfood { get; set; }
         public virtual List<Food> Childrens { get; set; } = new List<Food>();
         public int userID { get; set; }
-        public virtual User User { get; set; } = null!;
+        public virtual User ManagerUser { get; set; } = null!;
         public virtual List<LotteryHistory> LotteryHistories { get; set; } = new List<LotteryHistory>();
         public virtual List<Store> Stores { get; set; } =new List<Store>();
         public virtual List<UserFoodSettings> UserFoodSettings { get; set; } = new List<UserFoodSettings>();

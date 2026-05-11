@@ -5,8 +5,8 @@ namespace FoodSlot.Models
     public class UserRangeSettings
     {
         public int userID { get; set; }
-        public virtual List<User> Users { get; set; } = new List<User>();
+        public virtual User User { get; set; } = null!;
         public int rangeID { get; set; }
-        public virtual List<UserRange> Ranges { get; set; } = new List<UserRange>();
+        public virtual UserRange Range { get; set; } = null!;
     }
 }
