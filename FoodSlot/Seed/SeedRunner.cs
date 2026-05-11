@@ -10,7 +10,8 @@ namespace FoodSlot.Seed
         private readonly IImageUploadService _imageUploadService;
         private readonly SeedSystemSetting _seedSystemSetting;
         private readonly SeedSystemSettingCategory _seedSystemSettingCategory;
-        private readonly SeedFood _seedFood;    
+        private readonly SeedFood _seedFood;
+        private readonly SeedFood _seedUsers;
         private readonly SeedUserRange _seedUserRange;
         private readonly SeedUserRangeSettings _seedUserRangeSettings;
         private readonly SeedUserFoodSettings _seedUserFoodSettings;
@@ -27,7 +28,8 @@ namespace FoodSlot.Seed
             IImageUploadService imageUploadService,
             SeedSystemSetting seedSystemSetting,
             SeedSystemSettingCategory seedSystemSettingCategory,
-            SeedFood seedFood,           
+            SeedFood seedFood,
+            SeedUsers seedUsers,
             SeedUserRange seedUserRange,
             SeedUserRangeSettings seedUserRangeSettings,
             SeedUserFoodSettings seedUserFoodSettings)
@@ -38,6 +40,7 @@ namespace FoodSlot.Seed
             _seedSystemSetting = seedSystemSetting;
             _seedSystemSettingCategory = seedSystemSettingCategory;
             _seedFood = seedFood;           
+            _seedUsers = seedUsers;
             _seedUserRange = seedUserRange;
             _seedUserRangeSettings = seedUserRangeSettings;
             _seedUserFoodSettings = seedUserFoodSettings;
@@ -54,10 +57,16 @@ namespace FoodSlot.Seed
                 UploadImages(foodImagesGuids);
                 Console.WriteLine("上傳圖片 完成");
                 // 3 更新Seed資料
+
+                _seedUsers.Run();
                 _seedFood.Run(foodImagesGuids);
-                _seedSystemSetting.Run();
+
                 _seedSystemSettingCategory.Run();
+                _seedSystemSetting.Run();
+                _seedUserRange.Run();
                 _seedUserFoodSettings.Run();
+                _seedUserRangeSettings.Run();
+
                 Console.WriteLine("更新Seed資料 完成");
             }
 
