@@ -37,7 +37,8 @@ namespace FoodSlot.Seed.Data
                     {
                         foodname = item.Key,
                         photo = "",
-                        createTime = now
+                        createTime = now,
+                        userID = 1
                     };
 
                     _context.Foods.Add(parentCategory);
@@ -51,7 +52,8 @@ namespace FoodSlot.Seed.Data
                         foodname = childName,
                         photo = imageGuids[imageIndex++ % imageGuids.Length],
                         parentfoodID = parentCategory.foodID,
-                        createTime = now
+                        createTime = now,
+                        userID = 1
                     }).ToList();
 
                     _context.Foods.AddRange(childCategories);
