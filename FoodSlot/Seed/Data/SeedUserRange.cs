@@ -18,21 +18,18 @@ namespace FoodSlot.Seed.Data
             _context.UserRanges.AddRange(
                new UserRange
                {
-                   rangeID = 1,
                    radius = 500,
                    createTime = DateTime.Now,
                    updateTime = null
                },
                     new UserRange
                     {
-                        rangeID = 2,
                         radius = 1000,
                         createTime = DateTime.Now,
                         updateTime = null
                     },
                     new UserRange
-                    {
-                        rangeID = 3,
+                    {                        
                         radius = 3000,
                         createTime = DateTime.Now,
                         updateTime = null
