@@ -16,6 +16,7 @@ builder.Services.AddScoped<IImageUploadService, ImageUploadService>();
 //註冊種子資料
 builder.Services.AddScoped<SeedRunner>();
 builder.Services.AddScoped<SeedFood>();
+builder.Services.AddScoped<SeedUsers>();
 builder.Services.AddScoped<SeedSystemSetting>();
 builder.Services.AddScoped<SeedSystemSettingCategory>();
 builder.Services.AddScoped<SeedUserFoodSettings>();
@@ -32,6 +33,7 @@ using (var scope = app.Services.CreateScope())
     var seeder = scope.ServiceProvider.GetRequiredService<SeedRunner>();
     seeder.Run();
 }
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
