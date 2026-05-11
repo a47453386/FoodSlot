@@ -2,6 +2,9 @@
 using FoodSlot.Seed;
 using FoodSlot.Seed.Data;
 using Microsoft.EntityFrameworkCore;
+using FoodSlot.Services;
+using FoodSlot.Services.Interface;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
