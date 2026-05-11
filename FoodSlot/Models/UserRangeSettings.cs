@@ -7,6 +7,6 @@ namespace FoodSlot.Models
         public int userID { get; set; }
         public virtual User User { get; set; } = null!;
         public int rangeID { get; set; }
-        public virtual UserRange Range { get; set; } = null!;
+        public virtual UserRange UserRange { get; set; } = null!;
     }
 }
