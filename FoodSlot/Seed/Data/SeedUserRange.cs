@@ -20,19 +20,22 @@ namespace FoodSlot.Seed.Data
                {
                    radius = 500,
                    createTime = DateTime.Now,
-                   updateTime = null
+                   updateTime = null,
+                   userID = 1
                },
                     new UserRange
                     {
                         radius = 1000,
                         createTime = DateTime.Now,
-                        updateTime = null
+                        updateTime = null,
+                        userID=1
                     },
                     new UserRange
                     {                        
                         radius = 3000,
                         createTime = DateTime.Now,
-                        updateTime = null
+                        updateTime = null,
+                        userID = 1
                     }
             );
             _context.SaveChanges();

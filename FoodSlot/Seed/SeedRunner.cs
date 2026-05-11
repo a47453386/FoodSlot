@@ -1,5 +1,7 @@
 ﻿using FoodSlot.Models;
 using FoodSlot.Seed.Data;
+using FoodSlot.Services;
+using FoodSlot.Services.Interface;
 
 namespace FoodSlot.Seed
 {
@@ -11,7 +13,7 @@ namespace FoodSlot.Seed
         private readonly SeedSystemSetting _seedSystemSetting;
         private readonly SeedSystemSettingCategory _seedSystemSettingCategory;
         private readonly SeedFood _seedFood;
-        private readonly SeedFood _seedUsers;
+        private readonly SeedUsers _seedUsers;
         private readonly SeedUserRange _seedUserRange;
         private readonly SeedUserRangeSettings _seedUserRangeSettings;
         private readonly SeedUserFoodSettings _seedUserFoodSettings;
