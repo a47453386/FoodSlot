@@ -19,19 +19,15 @@ namespace FoodSlot.Seed.Data
             _context.UserRangeSettings.AddRange(
                new UserRangeSettings
                {
-                   userID = 3,
+                   userID = 1,
                    rangeID = 1
                },
-                    new UserRangeSettings
-                    {
-                        userID = 4,
-                        rangeID = 1
-                    },
-                    new UserRangeSettings
-                    {
-                        userID = 5,
-                        rangeID = 1
-                    }
+               new UserRangeSettings
+               {
+                   userID = 2,
+                   rangeID = 1
+               }
+                    
             );
             _context.SaveChanges();
         }
