@@ -6,11 +6,8 @@ namespace FoodSlot.Models
     public class FoodSlotContext : DbContext
     {
 
-        public FoodSlotContext(DbContextOptions options) : base(options)
-        {
-        }
-
         public FoodSlotContext(DbContextOptions<FoodSlotContext> options) : base(options) { }
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Food> Foods { get; set; }
         public DbSet<UserRange> UserRanges { get; set; }
@@ -38,7 +35,7 @@ namespace FoodSlot.Models
                 entity.ToTable("Foods");
 
                 // Food -> User
-                entity.HasOne(f => f.User)
+                entity.HasOne(f => f.ManagerUser)
                     .WithMany(u => u.Foods)
                     .HasForeignKey(f => f.userID)
                     .OnDelete(DeleteBehavior.Restrict);
@@ -56,7 +53,7 @@ namespace FoodSlot.Models
             {
                 entity.ToTable("UserRanges");
 
-                entity.HasOne(r => r.User)
+                entity.HasOne(r => r.ManagerUser)
                     .WithMany(u => u.UserRanges)
                     .HasForeignKey(r => r.userID)
                     .OnDelete(DeleteBehavior.Restrict);
@@ -200,13 +197,13 @@ namespace FoodSlot.Models
                 entity.HasKey(e => new { e.userID, e.foodID });
 
                 // User 關聯
-                entity.HasOne<User>()
+                entity.HasOne(l => l.User)
                     .WithMany(u => u.UserFoodSettings)
                     .HasForeignKey(e => e.userID)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 // Food 關聯
-                entity.HasOne<Food>()
+                entity.HasOne(l => l.Food)
                     .WithMany(f => f.UserFoodSettings)
                     .HasForeignKey(e => e.foodID)
                     .OnDelete(DeleteBehavior.Restrict);
@@ -222,13 +219,13 @@ namespace FoodSlot.Models
                 entity.HasKey(e => new { e.userID, e.rangeID });
 
                 // User 關聯
-                entity.HasOne<User>()
+                entity.HasOne(l => l.User)
                     .WithMany(u => u.UserRangeSettings)
                     .HasForeignKey(e => e.userID)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 // UserRange 關聯
-                entity.HasOne<UserRange>()
+                entity.HasOne(l => l.UserRange)
                     .WithMany(r => r.UserRangeSettings)
                     .HasForeignKey(e => e.rangeID)
                     .OnDelete(DeleteBehavior.Restrict);
