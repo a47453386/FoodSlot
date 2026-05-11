@@ -16,7 +16,7 @@ namespace FoodSlot.Models
         public DateTime createTime { get; set; } = DateTime.Now;
         public DateTime lastLoginTime { get; set; } = DateTime.Now;
 
-        public virtual List<Food> Foods { get; set; } = new List<Food>();
+        public virtual List<Food> ManagerFoods { get; set; } = new List<Food>();
         public virtual List<UserRange> UserRanges { get; set; } = new List<UserRange>();
         public virtual List<Verification> Verifications { get; set; } = new List<Verification>();
         public virtual List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
