@@ -11,5 +11,11 @@
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
+
+        public string PlaceId { get; set; } = "";
+
+        public string PhotoUrl { get; set; } = "";
+
+        public string GoogleMapUrl { get; set; } = "";
     }
 }

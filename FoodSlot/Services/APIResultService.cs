@@ -2,7 +2,6 @@
 using FoodSlot.DTOs;
 
 using Newtonsoft.Json.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FoodSlot.Services
 {
@@ -49,6 +48,20 @@ namespace FoodSlot.Services
 
             JObject data = JObject.Parse(json);
 
+            // Google API Status 檢查
+            string status =
+                data["status"]?.ToString()
+                ?? "";
+
+            if (status != "OK" && status != "ZERO_RESULTS")
+            {
+                Console.WriteLine($"Google API Error: {status}");
+
+                Console.WriteLine(json);
+
+                return stores;
+            }
+
             JArray? results =
                 data["results"] as JArray;
 
@@ -59,6 +72,33 @@ namespace FoodSlot.Services
 
             foreach (var item in results)
             {
+                // Place ID
+                string placeId =
+                    item["place_id"]?.ToString()
+                    ?? "";
+
+                // Photo Reference
+                string photoReference =
+                    item["photos"]?[0]?["photo_reference"]
+                    ?.ToString()
+                    ?? "";
+
+                // Google Photo URL
+                string photoUrl = "";
+
+                if (!string.IsNullOrEmpty(photoReference))
+                {
+                    photoUrl =
+                        $"https://maps.googleapis.com/maps/api/place/photo" +
+                        $"?maxwidth=400" +
+                        $"&photo_reference={photoReference}" +
+                        $"&key={apiKey}";
+                }
+
+                // Google Map URL
+                string googleMapUrl =
+                    $"https://www.google.com/maps/place/?q=place_id:{placeId}";
+
                 stores.Add(new StoreDTO
                 {
                     Name =
@@ -81,7 +121,13 @@ namespace FoodSlot.Services
                     Longitude =
                         item["geometry"]?["location"]?["lng"]
                         ?.Value<double>()
-                        ?? 0
+                        ?? 0,
+
+                    PlaceId = placeId,
+
+                    PhotoUrl = photoUrl,
+
+                    GoogleMapUrl = googleMapUrl
                 });
             }
 

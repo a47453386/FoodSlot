@@ -1,43 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FoodSlot.DTOs;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using FoodSlot.Services.Interfaces;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoodSlot.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class GoogleMapsAPIController : ControllerBase
     {
-        // GET: api/<GoogleMapsAPIController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAPIResultService _apiResultService;
+
+        public GoogleMapsAPIController(
+            IAPIResultService apiResultService)
         {
-            return new string[] { "value1", "value2" };
+            _apiResultService = apiResultService;
         }
 
-        // GET api/<GoogleMapsAPIController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// Nearby Search 測試
+        [HttpPost("NearbySearch")]
+        public async Task<IActionResult> NearbySearch(
+            [FromBody] NearbySearchRequestDTO request)
         {
-            return "value";
-        }
+            try
+            {
+                var result =
+                    await _apiResultService
+                        .NearbySearchAsync(request);
 
-        // POST api/<GoogleMapsAPIController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<GoogleMapsAPIController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<GoogleMapsAPIController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    Message = ex.Message
+                });
+            }
         }
     }
 }
