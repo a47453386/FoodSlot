@@ -25,6 +25,8 @@ namespace FoodSlot.Models
         public DbSet<SystemSetting> SystemSettings { get; set; }
         public DbSet<SystemSettingCategory> SystemSettingCategories { get; set; }
 
+        public DbSet<APIRequestLog> APIRequestLog { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
