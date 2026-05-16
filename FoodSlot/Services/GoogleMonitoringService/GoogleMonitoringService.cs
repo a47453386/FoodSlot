@@ -50,22 +50,28 @@ namespace FoodSlot.Services.GoogleMonitoringService
             {
         
                 var apiName = timeSeries.Resource.Labels
-                    .GetValueOrDefault("method", "");
+                    .GetValueOrDefault("service", "");
 
                 if (string.IsNullOrEmpty(apiName) || apiName == "unknown") continue;
 
-                var totalRequests = timeSeries.Points
-                    .Sum(p => (int)p.Value.Int64Value);
 
                 //同步到 SQL Server
-                var apiRequestLogs = new APIRequestLog
+                foreach(var point in timeSeries.Points)
                 {
-                    apiName = apiName,
-                    totalRequests = totalRequests,
-                    updatedAt = DateTime.Now
-                };
+                    var totalRequests=(int)point.Value.Int64Value;
+                    var endTime = point.Interval.EndTime.ToDateTime().ToLocalTime();//Google 回傳的那筆資料實際發生的時間
 
-               _context.APIRequestLog.Add(apiRequestLogs);
+                    var apiRequestLogs = new APIRequestLog
+                    {
+                        apiName = apiName,
+                        totalRequests = totalRequests,
+                        updatedAt = DateTime.Now
+                    };
+
+                    _context.APIRequestLog.Add(apiRequestLogs);
+                }    
+
+                
             }
            
             await _context.SaveChangesAsync();
