@@ -37,8 +37,8 @@ namespace FoodSlot.Services.GoogleMonitoringService
                 Filter = "metric.type=\"serviceruntime.googleapis.com/api/request_count\"",
                 Interval = new TimeInterval
                 {
-                    StartTime = Timestamp.FromDateTime(DateTime.UtcNow.AddDays(-30)),
-                    EndTime = Timestamp.FromDateTime(DateTime.UtcNow)
+                    StartTime = Timestamp.FromDateTime(DateTime.Now.AddDays(-30)),
+                    EndTime = Timestamp.FromDateTime(DateTime.Now)
                 },
                 View = ListTimeSeriesRequest.Types.TimeSeriesView.Full
             };
@@ -49,7 +49,6 @@ namespace FoodSlot.Services.GoogleMonitoringService
             foreach (var timeSeries in response)
             {
         
-
                 var apiName = timeSeries.Resource.Labels
                     .GetValueOrDefault("method", "");
 
