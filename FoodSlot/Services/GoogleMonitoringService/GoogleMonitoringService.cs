@@ -34,10 +34,10 @@ namespace FoodSlot.Services.GoogleMonitoringService
             var request = new ListTimeSeriesRequest
             {
                 Name = projectName.ToString(),
-                Filter = "metric.type =\"serviceruntime.googleapis.com/api/request_count\" AND resource.labels.service=\"places.googleapis.com\"",
+                Filter = "metric.type=\"serviceruntime.googleapis.com/api/request_count\"",
                 Interval = new TimeInterval
                 {
-                    StartTime = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-1)),
+                    StartTime = Timestamp.FromDateTime(DateTime.UtcNow.AddDays(-30)),
                     EndTime = Timestamp.FromDateTime(DateTime.UtcNow)
                 },
                 View = ListTimeSeriesRequest.Types.TimeSeriesView.Full
@@ -45,10 +45,12 @@ namespace FoodSlot.Services.GoogleMonitoringService
 
             //數據處理與計算
             var response = client.ListTimeSeries(request);// 執行查詢
-
+          
             foreach (var timeSeries in response)
             {
-                var apiName = timeSeries.Metric.Labels
+        
+
+                var apiName = timeSeries.Resource.Labels
                     .GetValueOrDefault("method", "");
 
                 if (string.IsNullOrEmpty(apiName) || apiName == "unknown") continue;
@@ -66,7 +68,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
 
                _context.APIRequestLog.Add(apiRequestLogs);
             }
-
+           
             await _context.SaveChangesAsync();
         }
     }
