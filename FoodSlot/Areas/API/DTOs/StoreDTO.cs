@@ -1,4 +1,4 @@
-﻿namespace FoodSlot.DTOs
+﻿namespace FoodSlot.Areas.API.DTOs
 {
     public class StoreDTO
     {

@@ -361,9 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-/FoodSlot/appsettings.json
-/FoodSlot/wwwroot/FoodImages
-/FoodSlot/Seed/Photos
-/FoodSlot/Migrations
-/FoodSlot/Keys

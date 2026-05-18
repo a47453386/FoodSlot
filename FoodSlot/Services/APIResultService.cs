@@ -1,7 +1,7 @@
 ﻿using FoodSlot.Services.Interfaces;
-using FoodSlot.DTOs;
 
 using Newtonsoft.Json.Linq;
+using FoodSlot.Areas.API.DTOs;
 
 namespace FoodSlot.Services
 {

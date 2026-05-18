@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Keys\" />
     <Folder Include="Seed\Photos\" />
   </ItemGroup>
 

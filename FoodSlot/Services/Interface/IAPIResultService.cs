@@ -1,4 +1,4 @@
-﻿using FoodSlot.DTOs;
+﻿using FoodSlot.Areas.API.DTOs;
 
 namespace FoodSlot.Services.Interfaces
 {

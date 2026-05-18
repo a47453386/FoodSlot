@@ -1,9 +1,9 @@
 ﻿using FoodSlot.Services.Interfaces;
-using FoodSlot.DTOs;
 
 using Microsoft.AspNetCore.Mvc;
+using FoodSlot.Areas.API.DTOs;
 
-namespace FoodSlot.Controllers
+namespace FoodSlot.Areas.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
