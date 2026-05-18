@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
 
-namespace FoodSlot.Services
+namespace FoodSlot.Services.ImageUploadService
 {
     public class ImageUploadService : IImageUploadService
     {
