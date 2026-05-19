@@ -1,6 +1,4 @@
-﻿using FoodSlot.Services;
-
-namespace FoodSlot.Services.Interface
+﻿namespace FoodSlot.Services.Interface
 {
     public interface IImageUploadService
     {

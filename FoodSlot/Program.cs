@@ -2,8 +2,8 @@
 using FoodSlot.Seed;
 using FoodSlot.Seed.Data;
 using Microsoft.EntityFrameworkCore;
-using FoodSlot.Services;
 using FoodSlot.Services.Interface;
+using FoodSlot.Services.ImageUploadServices;
 
 
 var builder = WebApplication.CreateBuilder(args);

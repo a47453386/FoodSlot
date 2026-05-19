@@ -1,4 +1,4 @@
-﻿namespace FoodSlot.Services
+﻿namespace FoodSlot.Services.ImageUploadService.ImageUploadService
 {
     public static class ImageSizePresets
     {
