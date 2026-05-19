@@ -1,4 +1,4 @@
-﻿namespace FoodSlot.Services
+﻿namespace FoodSlot.Services.ImageUploadServices
 {
     //設定模型（Configuration Model）
     public class ImageSizeOption

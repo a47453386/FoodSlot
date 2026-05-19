@@ -1,4 +1,4 @@
-﻿using FoodSlot.Services;
+﻿using FoodSlot.Services.ImageUploadServices;
 
 namespace FoodSlot.Services.Interface
 {
