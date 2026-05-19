@@ -3,7 +3,7 @@
 using Newtonsoft.Json.Linq;
 using FoodSlot.Areas.API.DTOs;
 
-namespace FoodSlot.Services
+namespace FoodSlot.Services.APIResultService
 {
     public class APIResultService : IAPIResultService
     {
