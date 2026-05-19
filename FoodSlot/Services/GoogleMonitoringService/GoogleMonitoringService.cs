@@ -45,36 +45,29 @@ namespace FoodSlot.Services.GoogleMonitoringService
 
             //數據處理與計算
             var response = client.ListTimeSeries(request);// 執行查詢
-          
-            foreach (var timeSeries in response)
-            {
-        
-                var apiName = timeSeries.Resource.Labels
-                    .GetValueOrDefault("service", "");
 
-                if (string.IsNullOrEmpty(apiName) || apiName == "unknown") continue;
-
-
-                //同步到 SQL Server
-                foreach(var point in timeSeries.Points)
+            //資料轉換與統計處理 (LINQ 邏輯)
+            var summaryData = response
+                .SelectMany(series => series.Points.Select(point => new
                 {
-                    var totalRequests=(int)point.Value.Int64Value;
-                    var endTime = point.Interval.EndTime.ToDateTime().ToLocalTime();//Google 回傳的那筆資料實際發生的時間
+                    apiName = series.Resource.Labels.ContainsKey("service") ? series.Resource.Labels["service"] : "Unknown",
+                    count = point.Value.Int64Value
+                }))
+                .GroupBy(x => x.apiName)
+                .Select(g => new APIRequestLog
+                {
+                    apiName = g.Key,                            
+                    totalRequests = (int)g.Sum(x => x.count),   
+                    updatedAt = DateTime.Now                    
+                })              
+                .ToList();
 
-                    var apiRequestLogs = new APIRequestLog
-                    {
-                        apiName = apiName,
-                        totalRequests = totalRequests,
-                        updatedAt = DateTime.Now
-                    };
-
-                    _context.APIRequestLog.Add(apiRequestLogs);
-                }    
-
-                
+            //資料庫儲存處理
+            if (summaryData.Any())
+            {
+                _context.APIRequestLog.AddRange(summaryData);
+                await _context.SaveChangesAsync();
             }
-           
-            await _context.SaveChangesAsync();
         }
     }
 }
