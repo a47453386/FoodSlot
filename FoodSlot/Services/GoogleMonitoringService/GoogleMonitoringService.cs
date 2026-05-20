@@ -20,7 +20,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
             _keyPath = config["GoogleCloud:KeyPath"]!;
         }
 
-        public async Task FetchAndSaveAsync()
+        public async Task FetchAndSaveAsync(int hours=1)
         {
             // 設定金鑰路徑
             Environment.SetEnvironmentVariable(
@@ -30,6 +30,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
             var client = MetricServiceClient.Create();
             var projectName = ProjectName.FromProject(_projectId);
 
+        
             //建立查詢請求 
             var request = new ListTimeSeriesRequest
             {
@@ -37,7 +38,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
                 Filter = "metric.type=\"serviceruntime.googleapis.com/api/request_count\"",
                 Interval = new TimeInterval
                 {
-                    StartTime = Timestamp.FromDateTime(DateTime.Now.AddDays(-30)),
+                    StartTime = Timestamp.FromDateTime(DateTime.Now.AddHours(-hours)),
                     EndTime = Timestamp.FromDateTime(DateTime.Now)
                 },
                 View = ListTimeSeriesRequest.Types.TimeSeriesView.Full
