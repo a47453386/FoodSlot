@@ -5,7 +5,8 @@ using System.Security.Claims;
 
 namespace FoodSlot.Areas.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Area("API")]
+    [Route("API/[controller]/[action]")]
     [ApiController]
     public class DrawController : ControllerBase
     {
@@ -16,9 +17,9 @@ namespace FoodSlot.Areas.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Start()
+        public async Task<IActionResult> StartDraw()
         {
-            //預設
+            // 未登入時保持 null，Service 會自動改用預設 userID = 1
             int? userID = null;
 
             //判斷是否登入，有登入時，取得登入者的userID字串
@@ -26,7 +27,7 @@ namespace FoodSlot.Areas.API.Controllers
             {
                 string? userIDString =
                     User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                //userIDString不是空值時，將userID字串轉成int
+                //userIDString 有值時，將字串轉成 int
                 if (!string.IsNullOrWhiteSpace(userIDString))
                 {
                     userID = int.Parse(userIDString);
