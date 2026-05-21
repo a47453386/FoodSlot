@@ -6,7 +6,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
 {
     public class SystemMonitorService
     {
-        private readonly ConcurrentQueue<MonitorMetricVM> _metrics = new();
+        private readonly ConcurrentQueue<VMMonitorMetric> _metrics = new();
         private readonly ILogger<SystemMonitorService> _logger;
         public string CurrentStatus { get; set; } = "待機中";
 
@@ -26,7 +26,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
             var now= DateTime.Now;
 
             //組裝結構化物件
-            var metricEntry = new MonitorMetricVM
+            var metricEntry = new VMMonitorMetric
             {
                 Time = now,
                 Value = value,
@@ -52,7 +52,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
 
         }
         //折線圖
-        public List<MonitorMetricVM> GetChartData()
+        public List<VMMonitorMetric> GetChartData()
         {
             return _metrics.ToList();
         }
@@ -67,7 +67,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
         }
 
         // 將日誌寫入到 bin/Debug/net8.0/Logs/ 資料夾下
-        private void WriteLogToFile(MonitorMetricVM entry)
+        private void WriteLogToFile(VMMonitorMetric entry)
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿namespace FoodSlot.ViewModels
 {
-    public class MonitorMetricVM
+    public class VMMonitorMetric
     {
         public DateTime Time { get; set; }     // 對應 X 軸：時間
         public double Value { get; set; }       // 對應 Y 軸：數值 (例如請求數、抽籤次數)
