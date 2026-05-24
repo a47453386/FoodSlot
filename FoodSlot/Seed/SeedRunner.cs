@@ -1,6 +1,6 @@
 ﻿using FoodSlot.Models;
 using FoodSlot.Seed.Data;
-using FoodSlot.Services;
+using FoodSlot.Services.ImageUploadServices;
 using FoodSlot.Services.Interface;
 
 namespace FoodSlot.Seed
