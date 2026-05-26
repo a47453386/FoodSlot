@@ -47,9 +47,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
             //寫入實體檔案(每日一個檔案)
             WriteLogToFile(metricEntry);
 
-            //刪除超過365的檔案
-            DeleteOldLogFiles();
-
+           
         }
         //折線圖
         public List<VMMonitorMetric> GetChartData()
@@ -97,7 +95,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
         }
 
         //清理超過365天的檔案
-        private void DeleteOldLogFiles()
+        public void DeleteOldLogFiles()
         {
             try
             {

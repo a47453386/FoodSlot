@@ -20,7 +20,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
             _keyPath = config["GoogleCloud:KeyPath"]!;
         }
 
-        public async Task FetchAndSaveAsync(int hours=1)
+        public async Task<List<APIRequestLog>> FetchAndSaveAsync(int hours=1)
         {
             // 設定金鑰路徑
             Environment.SetEnvironmentVariable(
@@ -38,8 +38,8 @@ namespace FoodSlot.Services.GoogleMonitoringService
                 Filter = "metric.type=\"serviceruntime.googleapis.com/api/request_count\"",
                 Interval = new TimeInterval
                 {
-                    StartTime = Timestamp.FromDateTime(DateTime.Now.AddHours(-hours)),
-                    EndTime = Timestamp.FromDateTime(DateTime.Now)
+                    StartTime = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-hours)),
+                    EndTime = Timestamp.FromDateTime(DateTime.UtcNow)
                 },
                 View = ListTimeSeriesRequest.Types.TimeSeriesView.Full
             };
@@ -51,7 +51,12 @@ namespace FoodSlot.Services.GoogleMonitoringService
             var summaryData = response
                 .SelectMany(series => series.Points.Select(point => new
                 {
-                    apiName = series.Resource.Labels.ContainsKey("service") ? series.Resource.Labels["service"] : "Unknown",
+                    apiName = series.Resource.Labels.ContainsKey("method")
+                    ? series.Resource.Labels["method"] : 
+                    series.Resource.Labels.ContainsKey("service")
+                    ? series.Resource.Labels["service"]
+                    :"Unknown",
+
                     count = point.Value.Int64Value
                 }))
                 .GroupBy(x => x.apiName)
@@ -62,13 +67,15 @@ namespace FoodSlot.Services.GoogleMonitoringService
                     updatedAt = DateTime.Now                    
                 })              
                 .ToList();
-
+       
             //資料庫儲存處理
             if (summaryData.Any())
             {
                 _context.APIRequestLog.AddRange(summaryData);
                 await _context.SaveChangesAsync();
             }
+
+            return summaryData;
         }
     }
 }

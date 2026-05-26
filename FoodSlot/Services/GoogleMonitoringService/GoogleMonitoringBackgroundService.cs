@@ -25,44 +25,63 @@ namespace FoodSlot.Services.GoogleMonitoringService
         {
             //初始化log
             _systemMonitorService.AddLog(0, "Google監控背景服務已啟動", "待機中");
-            while(!stoppingToken.IsCancellationRequested)
+            //
+            _systemMonitorService.DeleteOldLogFiles();
+
+            while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
                     //開始執行任務，狀態改為「處理中」
                     _systemMonitorService.AddLog(0, "開始執行任務：正同步Google Cloud指標並更新資料庫...", "處理中");
 
-                    int totalRequestInDB = 0;
-
                     using (var scope=_serviceScopeFactory.CreateAsyncScope())
                     {
-                        //取得GoogleMonitoringService
-                        var googleService = scope.ServiceProvider.GetRequiredService<GoogleMonitoringService>();
-                        try
+                        var googleService=scope.ServiceProvider.GetRequiredService<GoogleMonitoringService>();
+
+                        //本次抓取結果
+                        var fetchResult = await googleService.FetchAndSaveAsync(1);
+
+
+                        var dbContext = scope.ServiceProvider.GetRequiredService<FoodSlotContext>();
+
+                        var cutoffTime = DateTime.Now.AddHours(-24);
+
+                        //資料庫24小時累積總量
+                       var apiSummary = dbContext.APIRequestLog
+                            .Where(x => x.updatedAt >= cutoffTime)
+                            .GroupBy(x=>x.apiName)
+                            .Select(x => new
+                            {
+                                apiName=x.Key,
+                                total=x.Sum(x=>x.totalRequests)
+                            })
+                            .ToList();
+                        //警戒值
+                        int warningThreshold = 100;
+
+
+
+                        foreach (var item in fetchResult)
                         {
-                            await googleService.FetchAndSaveAsync(1);
-                        }catch(Exception ex) 
-                        {
-                            _logger.LogWarning(ex, "定時從Google抓取資料失敗");
+                            _systemMonitorService.AddLog(
+                                item.totalRequests, $"[{item.apiName}]本小時請求數：{item.totalRequests}次。", "處理中");
                         }
 
-                        //取得資料庫資料
-                        var dbContect = scope.ServiceProvider.GetRequiredService<FoodSlotContext>();
+                       foreach(var api in apiSummary)
+                        {
+                            bool isWarning=api.total>=warningThreshold;
+                            string status = isWarning ? "警戒" : "待機中";
 
-                        //計算「最近24小時」時間中斷點
-                        var cutoffTime = DateTime.Now.AddHours(-24);
-                        totalRequestInDB = dbContect.APIRequestLog
-                            .Where(x => x.updatedAt >= cutoffTime)
-                            .Sum(x => x.totalRequests);
-                            
+                            _systemMonitorService.AddLog(
+                                api.total,
+                                $"[24小時統計]{api.apiName}:{api.total}次"+(isWarning?$"已達警戒值{warningThreshold}次!":""),
+                                status);
+                        }
 
 
                     }
 
-                    _systemMonitorService.AddLog(
-                            totalRequestInDB,
-                            $"定時監控與入庫已完成。當前資料庫統計(最近24小時累積總請求量)為:{totalRequestInDB}次。",
-                            "待機中");
 
 
                 }

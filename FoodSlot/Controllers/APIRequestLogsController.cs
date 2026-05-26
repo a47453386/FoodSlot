@@ -44,7 +44,7 @@ namespace FoodSlot.Controllers
         [HttpPost("fetch")]
         public async Task<IActionResult> FetchFromGoogle()
         {
-            await _googleMonitoringService.FetchAndSaveAsync();
+            await _googleMonitoringService.FetchAndSaveAsync(24);
             return Ok("資料已從 Google Monitoring 更新");
         }
 

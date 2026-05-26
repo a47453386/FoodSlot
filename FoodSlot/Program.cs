@@ -21,7 +21,8 @@ builder.Services.AddDbContext<FoodSlotContext>(options =>
 //註冊服務
 builder.Services.AddScoped<IImageUploadService, ImageUploadService>();
 builder.Services.AddScoped<GoogleMonitoringService>();
-builder.Services.AddScoped<SystemMonitorService>();
+builder.Services.AddSingleton<SystemMonitorService>();
+builder.Services.AddHostedService<GoogleMonitoringBackgroundService>();
 
 //註冊種子資料
 builder.Services.AddScoped<SeedRunner>();
