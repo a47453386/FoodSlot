@@ -17,5 +17,7 @@
         public string PhotoUrl { get; set; } = "";
 
         public string GoogleMapUrl { get; set; } = "";
+
+        public bool? OpenNow { get; set; }
     }
 }

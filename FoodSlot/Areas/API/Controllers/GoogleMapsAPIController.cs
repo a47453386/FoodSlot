@@ -10,11 +10,13 @@ namespace FoodSlot.Areas.API.Controllers
     public class GoogleMapsAPIController : ControllerBase
     {
         private readonly IAPIResultService _apiResultService;
+        private readonly IConfiguration _configuration;
 
         public GoogleMapsAPIController(
-            IAPIResultService apiResultService)
+            IAPIResultService apiResultService, IConfiguration configuration)
         {
             _apiResultService = apiResultService;
+            _configuration = configuration;
         }
 
         /// Nearby Search 測試
@@ -37,6 +39,14 @@ namespace FoodSlot.Areas.API.Controllers
                     Message = ex.Message
                 });
             }
+        }
+
+        //取得APIKey
+        [HttpGet("GetApiKey")]
+        public IActionResult GetApiKey()
+        {
+            string apiKey = _configuration["GoogleApi:ApiKey"]!;
+            return Ok(new { apiKey = apiKey });
         }
     }
 }

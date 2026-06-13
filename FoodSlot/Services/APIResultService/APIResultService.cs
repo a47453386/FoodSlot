@@ -85,6 +85,13 @@ namespace FoodSlot.Services.APIResultService
 
                 // Google Photo URL
                 string photoUrl = "";
+                //
+                bool? openNow = null;
+                var openingHours = item["opening_hours"];
+                if (openingHours != null && openingHours["open_now"] != null)
+                {
+                    openNow = openingHours["open_now"]?.Value<bool>();
+                }
 
                 if (!string.IsNullOrEmpty(photoReference))
                 {
@@ -127,7 +134,9 @@ namespace FoodSlot.Services.APIResultService
 
                     PhotoUrl = photoUrl,
 
-                    GoogleMapUrl = googleMapUrl
+                    GoogleMapUrl = googleMapUrl,
+
+                    OpenNow = openNow
                 });
             }
 

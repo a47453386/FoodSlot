@@ -40,5 +40,32 @@ namespace FoodSlot.Areas.API.Controllers
 
             return Ok(result);
         }
+
+        //獎池列表API
+        [HttpGet]
+        public async Task<IActionResult> GetPrizePool()
+        {
+            int? userID = null;
+
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                string? userIDString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!string.IsNullOrWhiteSpace(userIDString))
+                {
+                    userID = int.Parse(userIDString);
+                }
+            }
+
+            try
+            {
+                // 呼叫讀取獎池的服務
+                List<VMFoodSlotItem> result = await _drawService.GetFoodsPoolAsync(userID);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
     }
 }
