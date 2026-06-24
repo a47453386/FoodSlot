@@ -80,7 +80,7 @@ namespace FoodSlot.Services.GoogleMonitoringService
                 string filePath = Path.Combine(logDir, fileName);
 
                 //組合寫入內容
-                string fullcontent = $"[{entry.Time:yyyy-MM-dd HH:mm:ss}][{entry.Status}]數值:{entry.Value}|{entry.Message}{Environment.NewLine}";
+                string fullcontent = $"[{entry.Time:yyyy-MM-dd HH:mm:ss}]|{entry.Message}{Environment.NewLine}";
 
                 lock(logDir)
                 {
